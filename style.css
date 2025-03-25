@@ -54,13 +54,13 @@ body {
   backdrop-filter: blur(5px);
 }
 
-/* .form.hidden {
-    transform: translateY(-30rem);
-    height: 0;
-    padding: 0 2.25rem;
-    margin-bottom: 0;
-    opacity: 0;
-  } */
+.form.hidden {
+  transform: translateY(-30rem);
+  height: 0;
+  padding: 0 2.25rem;
+  margin-bottom: 0;
+  opacity: 0;
+}
 
 .form__row {
   display: flex;
@@ -104,19 +104,7 @@ body {
   color: #495057;
 }
 
-/* Map styling */
 #map {
-  flex-grow: 1;
-  height: 100vh;
-}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-  }
-  #map {
-    height: 60vh;
-  }
+  flex: 1;
+  height: 100%;
 }
