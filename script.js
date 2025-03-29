@@ -18,58 +18,102 @@ const months = [
 const form = document.querySelector(".form");
 const inputType = document.querySelector(".form__input--type");
 const inputDistance = document.querySelector(".form__input--distance");
-const inputDuration = document.querySelector(".form__input--distance");
+const inputDuration = document.querySelector(".form__input--duration");
 const inputRating = document.querySelector(".form__input--rating");
 
-let map, mapEvent;
+class Workout {
+  date = new Date();
+  id = (Date.now() + "").slice(-10);
 
-if (navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      const { latitude } = position.coords;
-      const { longitude } = position.coords;
-      console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
+  constructor(type, coords, distance, duration, rating) {
+    this.type = type;
+    this.coords = coords; // [lat, lng]
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+    this.rating = rating;
+  }
+}
 
-      const coords = [latitude, longitude];
+// class Hiking extends Workout {
+//   constructor()
+// }
 
-      map = L.map("map").setView(coords, 13);
+// class Rucking extends Workout {
+//   constructor()
+// }
 
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+// class TrailRunning extends Workout {
+//    constructor();
+// }
 
-      // handling clicks on map
-      map.on("click", function (mapE) {
-        mapEvent = mapE;
-        form.classList.remove("hidden");
-        inputDistance.focus();
-      });
-    },
-    function () {
-      alert("Could not get your position");
-    }
-  );
+class App {
+  #map;
+  #mapEvent;
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
+  constructor() {
+    this._getPosition();
 
-  // Clear input fields
-  inputDistance.value = inputDuration.value = inputRating.value = "";
-  // Display marker
-  const { lat, lng } = mapEvent.latlng;
+    form.addEventListener("submit", this._newWorkout.bind(this));
+  }
 
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup(
-      L.popup({
-        maxwidth: 250,
-        minWidth: 100,
-        autoClose: false,
-        closeOnClick: false,
-        classname: "hiking-popup",
-      })
-    )
-    .setPopupContent("Hiking")
-    .openPopup();
-});
+  _getPosition() {
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(
+        this._loadMap.bind(this),
+        function () {
+          alert("Could not get your position");
+        }
+      );
+  }
+
+  _loadMap(position) {
+    const { latitude } = position.coords;
+    const { longitude } = position.coords;
+    console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
+
+    const coords = [latitude, longitude];
+
+    this.#map = L.map("map").setView(coords, 13);
+
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.#map);
+
+    // handling clicks on map
+    this.#map.on("click", this._showForm.bind(this));
+  }
+
+  _showForm(mapE) {
+    this.#mapEvent = mapE;
+    form.classList.remove("hidden");
+    inputDistance.focus();
+  }
+
+  _newWorkout(e) {
+    e.preventDefault();
+
+    const type = inputType.options[inputType.selectedIndex].text;
+    // Clear input fields
+    inputDistance.value = inputDuration.value = inputRating.value = "";
+
+    // Display marker
+    const { lat, lng } = this.#mapEvent.latlng;
+
+    L.marker([lat, lng])
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxwidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          classname: "hiking-popup",
+        })
+      )
+      .setPopupContent(`${type}`)
+      .openPopup();
+  }
+}
+
+const app = new App();
