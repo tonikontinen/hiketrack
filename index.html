@@ -34,7 +34,12 @@
     <div class="sidebar">
       <div class="logo-container">
         <img src="hiketrack-logo.png" alt="Logo" class="logo" />
-        <h1 class="app-name">HikeTrack</h1>
+        <div class="logo-header">
+          <h1 class="app-name">HikeTrack</h1>
+          <p class="welcome-text">
+            Welcome to HikeTrack, click on the map to begin tracking!
+          </p>
+        </div>
       </div>
       <ul class="workouts">
         <form class="form hidden">
@@ -61,15 +66,19 @@
             <label class="form__label">Rating</label>
             <div class="form__input form__input--rating">
               <input type="radio" id="star5" name="enjoyment" value="5" />
-              <label for="star5">1★</label>
+              <label for="star5">5★</label>
+
               <input type="radio" id="star4" name="enjoyment" value="4" />
-              <label for="star4">2★</label>
+              <label for="star4">4★</label>
+
               <input type="radio" id="star3" name="enjoyment" value="3" />
               <label for="star3">3★</label>
+
               <input type="radio" id="star2" name="enjoyment" value="2" />
-              <label for="star2">4★</label>
+              <label for="star2">2★</label>
+
               <input type="radio" id="star1" name="enjoyment" value="1" />
-              <label for="star1">5★</label>
+              <label for="star1">1★</label>
             </div>
           </div>
           <button class="form__btn">OK</button>

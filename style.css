@@ -39,6 +39,12 @@ body {
   padding: 20px 0;
 }
 
+.logo-header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
+
 .app-name {
   font-family: "Manrope", sans-serif;
   font-weight: 800;
@@ -52,6 +58,7 @@ body {
   padding: 15px;
   border-radius: 10px;
   backdrop-filter: blur(5px);
+  position: relative;
 }
 
 .form.hidden {
@@ -92,6 +99,24 @@ body {
   transition: background 0.3s;
 }
 
+.form__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #495057;
+  z-index: 1000;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.form__close:hover {
+  color: #2e7d32; /* Red on hover for clear indication */
+  transform: scale(1.2);
+}
+
 .form__btn:hover {
   background: #1b5e20; /* Darker green */
 }
@@ -107,4 +132,46 @@ body {
 #map {
   flex: 1;
   height: 100%;
+}
+
+.dark-popup .leaflet-popup-content-wrapper {
+  background: #333;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.dark-popup .leaflet-popup-tip {
+  background: #333;
+}
+
+.workout {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+.workout:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* keeps logo and text aligned on the same baseline */
+}
+
+.logo-header {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px; /* spacing between logo and text */
+}
+
+.welcome-text {
+  margin: 4px 0 0; /* small gap above the welcome line */
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #63e6be;
+}
+
+.welcome-text.hidden {
+  display: none;
 }
