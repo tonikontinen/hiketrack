@@ -113,7 +113,7 @@ body {
 }
 
 .form__close:hover {
-  color: #2e7d32; /* Red on hover for clear indication */
+  color: #2e7d32; /* Green on hover for clear indication */
   transform: scale(1.2);
 }
 
